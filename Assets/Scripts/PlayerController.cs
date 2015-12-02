@@ -81,6 +81,18 @@ public class PlayerController : MonoBehaviour {
         {
             shooting = false;
         }
+
+		if (Input.GetButtonDown ("Jump"))
+		{
+			var bullet = pool.NextObject(head);
+			shooting = true;
+			bullet.transform.position = transform.position;
+			bullet.SetActive(true);
+		}
+		else
+		{
+			shooting = false;
+		}
         
     }
 

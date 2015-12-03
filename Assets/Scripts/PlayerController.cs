@@ -12,13 +12,17 @@ public class PlayerController : MonoBehaviour {
     //Rigidbody2D rb2d;
     public float moveSpeed = 0.3f;
     public float rotateSpeed = 0.1f;
+    public int ammoCount = 10;
+    public float reloadTime = 1;
     public float fireRate = 10f;
     public string bulletColor = "blue_red";
+    public bool rotating = false;
+    public bool shooting = false;
+
     float lastfired;
     float hAxis;
     float vAxis;
-    public bool rotating = false;
-    public bool shooting = false;
+    
     PlayerBulletPool pool;
     Quaternion startingRotation;
 

@@ -8,7 +8,6 @@ public class RedEnemyController : MonoBehaviour {
 	public float fireRate = 10f;
     int actualAmmo;
 	float lastfired;
-	float lastReload;
 	public bool reloading;
 	EnemyBulletPool pool;
 	// Use this for initialization
@@ -16,7 +15,6 @@ public class RedEnemyController : MonoBehaviour {
 		pool = GetComponent<EnemyBulletPool> ();
         actualAmmo = ammoCount;
 		lastfired = 0;
-		lastReload = 0;
 	}
 	
 	// Update is called once per frame

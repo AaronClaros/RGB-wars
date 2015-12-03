@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour {
     float vAxis;
     public bool rotating = false;
     public bool shooting = false;
-    BulletPool pool;
+    PlayerBulletPool pool;
     Quaternion startingRotation;
 
     
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
         //rb2d = GetComponent<Rigidbody2D>();
         startingRotation = this.transform.rotation;
-        pool = GetComponent<BulletPool>();
+		pool = GetComponent<PlayerBulletPool>();
 	}
 	
 	// Update is called once per frame

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class BulletPool : MonoBehaviour {
+public class PlayerBulletPool : MonoBehaviour {
 
 	//public int poolSize = 5;
 	public GameObject[] instances;

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class BulletScript : MonoBehaviour {
+public class PlayerBulletScript : MonoBehaviour {
     public float speed;
     public header color;
     string c;

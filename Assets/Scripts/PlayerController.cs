@@ -6,6 +6,12 @@ public enum header {
     green_blue = 0, 
     green_red = 1 
 };
+
+public enum colorGame { 
+    red,
+    green,
+    blue
+};
 public class PlayerController : MonoBehaviour {
     //[SerializeField]
     //ForceMode2D forceMode;

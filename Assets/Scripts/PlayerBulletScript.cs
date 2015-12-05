@@ -4,6 +4,10 @@ using System.Collections;
 public class PlayerBulletScript : MonoBehaviour {
     public float speed;
     public header color;
+    [HideInInspector]
+    public colorGame colorA;
+    [HideInInspector]
+    public colorGame colorB;
     string c;
     
 	// Use this for initialization
@@ -11,14 +15,20 @@ public class PlayerBulletScript : MonoBehaviour {
         c = GetComponent<SpriteRenderer>().sprite.name;
         if (c == "blue_red") {
             color = header.blue_red;
+            colorA = colorGame.blue;
+            colorB = colorGame.red;
         }
         else if (c == "green_blue")
         {
             color = header.green_blue;
+            colorA = colorGame.green;
+            colorB = colorGame.blue;
         }
         else if (c == "green_red")
         {
             color = header.green_red;
+            colorA = colorGame.green;
+            colorB = colorGame.red;
         }
 	}
 	

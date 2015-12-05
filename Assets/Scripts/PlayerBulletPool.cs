@@ -52,6 +52,7 @@ public class PlayerBulletPool : MonoBehaviour {
             index = 2;
         }
 		var clone =  Instantiate (instances [index]) as GameObject;
+        clone.SetActive(false);
         clone.transform.position = Vector2.zero;
 		
         if (index == 0) {

@@ -16,7 +16,12 @@ public class PlayerController : MonoBehaviour {
     //[SerializeField]
     //ForceMode2D forceMode;
     //Rigidbody2D rb2d;
-    public float moveSpeed = 0.3f;
+	public enum ControlType{
+		keyboard_only,
+		keyboard_mouse
+	};
+	public ControlType controlType;
+	public float moveSpeed = 0.3f;
     public float rotateSpeed = 0.1f;
     public int ammoCount = 10;
     public float reloadTime = 1;
@@ -73,36 +78,29 @@ public class PlayerController : MonoBehaviour {
             }
             
         }
-
-        //Shooting
-        if (Input.GetButton("Jump")) 
-        {
-           
-            if (Time.time - lastfired > 1 / fireRate)
-            {
-                lastfired = Time.time;
-                var bullet = pool.NextObject(head);
-                shooting = true;
-                bullet.transform.position = transform.position;
-                bullet.SetActive(true);
-            }
-        }
-        else
-        {
-            shooting = false;
-        }
-
-		if (Input.GetButtonDown ("Jump"))
-		{
-			var bullet = pool.NextObject(head);
-			shooting = true;
-			bullet.transform.position = transform.position;
-			bullet.SetActive(true);
-		}
-		else
-		{
+		//Shooting with space
+		if (Input.GetButton ("Jump")) {
+			if (Time.time - lastfired > 1 / fireRate) {
+				lastfired = Time.time;
+				var bullet = pool.NextObject (head);
+				shooting = true;
+				bullet.transform.position = transform.position;
+				bullet.SetActive (true);
+			}
+		} else {
 			shooting = false;
 		}
+		//Fast Shoot
+		if (Input.GetButtonDown ("Jump")) {
+			var bullet = pool.NextObject (head);
+			shooting = true;
+			bullet.transform.position = transform.position;
+			bullet.SetActive (true);
+		} else {
+			shooting = false;
+		}
+		
+
         
     }
 

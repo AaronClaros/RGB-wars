@@ -11,7 +11,7 @@ public class ShipSideScript : MonoBehaviour {
         sprite = GetComponent<SpriteRenderer>();
 	}
 
-    void OnTriggerEnter2D(Collider2D other) {
+    void OnCollisionEnter2D(Collision2D other) {
         Debug.Log("impact");
         if (other.gameObject.tag == "Enemy Bullet") {
             var enemyBullet = other.gameObject.GetComponent<EnemyBulletScript>();

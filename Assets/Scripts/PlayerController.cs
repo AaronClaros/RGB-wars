@@ -65,6 +65,7 @@ public class PlayerController : MonoBehaviour {
         {
             if (!rotating)
             {
+				Debug.Log("left rotation");
                 StartCoroutine(rotateTriangle(120));
             }
             
@@ -74,6 +75,7 @@ public class PlayerController : MonoBehaviour {
            
             if (!rotating)
             {
+				Debug.Log("rigth rotation");
                 StartCoroutine(rotateTriangle(-120));
             }
             
@@ -86,9 +88,9 @@ public class PlayerController : MonoBehaviour {
 				shooting = true;
 				bullet.transform.position = transform.position;
 				bullet.SetActive (true);
+			} else {
+				shooting = false;
 			}
-		} else {
-			shooting = false;
 		}
 		//Fast Shoot
 		if (Input.GetButtonDown ("Jump")) {
@@ -99,7 +101,20 @@ public class PlayerController : MonoBehaviour {
 		} else {
 			shooting = false;
 		}
-		
+		///doesn't work the block mode
+		if (Input.GetKeyDown(KeyCode.C)&&Input.GetKeyDown(KeyCode.Space)){
+			shooting = true;
+			if (!rotating){
+				Debug.Log("defence mode on");
+				StartCoroutine(rotateTriangle(-60));
+			}
+		}else if (Input.GetKeyUp(KeyCode.C)&&Input.GetKeyUp(KeyCode.Space)){
+			shooting = false;
+			if (!rotating) {
+				StartCoroutine(rotateTriangle(60));
+				Debug.Log("defence mode off");
+			}
+		}
 
         
     }

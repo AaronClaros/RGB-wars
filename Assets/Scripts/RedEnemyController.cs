@@ -60,10 +60,10 @@ public class RedEnemyController : MonoBehaviour
         if (other.gameObject.tag == "Player Bullet") {
 			var playerBullet = other.gameObject.GetComponent<PlayerBulletScript> ();
 			if (shipColor == playerBullet.colorA || shipColor == playerBullet.colorB) {
-				Debug.Log ("Enemy Ship Parry Bullet");
+				//Debug.Log ("Enemy Ship Parry Bullet");
 			} else {
 				gameObject.SetActive (false);
-				Debug.Log ("Enemy destroyed");
+				//Debug.Log ("Enemy destroyed");
 			}
 		} else if (other.gameObject.tag == "Player Ship") {
 			if (other.gameObject.GetComponent<ShipSideScript>().sideColor == shipColor){

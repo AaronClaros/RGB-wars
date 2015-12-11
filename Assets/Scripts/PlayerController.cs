@@ -82,6 +82,7 @@ public class PlayerController : MonoBehaviour {
         }
 		//Shooting with space
 		if (Input.GetButton ("Jump")) {
+			shooting = true;
 			if (Time.time - lastfired > 1 / fireRate) {
 				lastfired = Time.time;
 				var bullet = pool.NextObject (head);
@@ -102,19 +103,7 @@ public class PlayerController : MonoBehaviour {
 			shooting = false;
 		}
 		///doesn't work the block mode
-		if (Input.GetKeyDown(KeyCode.C)&&Input.GetKeyDown(KeyCode.Space)){
-			shooting = true;
-			if (!rotating){
-				Debug.Log("defence mode on");
-				StartCoroutine(rotateTriangle(-60));
-			}
-		}else if (Input.GetKeyUp(KeyCode.C)&&Input.GetKeyUp(KeyCode.Space)){
-			shooting = false;
-			if (!rotating) {
-				StartCoroutine(rotateTriangle(60));
-				Debug.Log("defence mode off");
-			}
-		}
+
 
         
     }

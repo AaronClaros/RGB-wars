@@ -31,7 +31,7 @@ public class ShipSideScript : MonoBehaviour {
 			Debug.Log("healed");
 			if (enemyRest.color == sideColor) {
 				Debug.Log("healed");
-				HealtSide(20f);
+				HealtSide(30f);
 				enemyRest.gameObject.SetActive(false);
 			} else {
 				/*
@@ -44,7 +44,7 @@ public class ShipSideScript : MonoBehaviour {
     void DamageSide(float damage) {
 		Debug.Log ("damaged");
 		actualAlfa = sprite.color.a;
-		if (actualAlfa > 0.19f) {
+		if (actualAlfa > 0.21f) {
 			sprite.color = new Color (255f, 255f, 255f, actualAlfa - damage / 100);
 			actualAlfa = sprite.color.a;
 		} else {
@@ -56,7 +56,7 @@ public class ShipSideScript : MonoBehaviour {
 	void HealtSide(float count){
 		Debug.Log ("healed");
 		actualAlfa = sprite.color.a;
-		if (actualAlfa < 0.81f) {
+		if (actualAlfa < 0.79f) {
 			sprite.color = new Color (255f, 255f, 255f, actualAlfa + count / 100);
 			actualAlfa = sprite.color.a;
 		} else {

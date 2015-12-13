@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour {
 					lastfired = Time.time;
 					var bullet = pool.NextObject (head);
 					shooting = true;
-					bullet.transform.position = transform.position;
+					bullet.transform.position = new Vector2(transform.position.x + 2.5f, transform.position.y);
 					bullet.SetActive (true);
 				}
 			}
@@ -103,14 +103,14 @@ public class PlayerController : MonoBehaviour {
 			if (!shooting){
 				var bullet = pool.NextObject (head);
 				shooting = true;
-				bullet.transform.position = transform.position;
+                bullet.transform.position = new Vector2(transform.position.x + 2.5f, transform.position.y);
 				bullet.SetActive (true);
 			}
 		} else {
 			shooting = false;
 		}
 
-		///doesn't work the block mode
+		// block mode
 
 		if (Input.GetKey (KeyCode.Space) && Input.GetKeyDown (KeyCode.C)) {
 			//if (!rotating)
@@ -128,6 +128,28 @@ public class PlayerController : MonoBehaviour {
 				StartCoroutine(rotateTriangle(60));
 			//}
 		}
+
+        if (Input.GetKey(KeyCode.Space) && Input.GetKeyDown(KeyCode.Z))
+        {
+            //if (!rotating)
+            //{
+            Debug.Log("Left Block on");
+            StartCoroutine(rotateTriangle(60));
+            //}
+        }
+        else if (Input.GetKey(KeyCode.Space) && Input.GetKey(KeyCode.Z))
+        {
+            rotating = true;
+            shooting = true;
+        }
+        else if (Input.GetKey(KeyCode.Space) && Input.GetKeyUp(KeyCode.Z))
+        {
+            //if (!rotating){
+            rotating = false;
+            Debug.Log("Left Block off");
+            StartCoroutine(rotateTriangle(-60));
+            //}
+        }
 
     }
 

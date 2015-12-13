@@ -14,6 +14,10 @@ public class RedEnemyController : MonoBehaviour
 
     public colorGame shipColor;
 	CircleCollider2D collider;
+
+    public GameObject restPrefab;
+    SpriteRenderer sprite;
+    float actualAlfa;
     // Use this for initialization
     void Start()
     {
@@ -21,6 +25,7 @@ public class RedEnemyController : MonoBehaviour
         actualAmmo = ammoCount;
         lastfired = 0;
 		collider = GetComponent<CircleCollider2D> ();
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -62,7 +67,7 @@ public class RedEnemyController : MonoBehaviour
 			if (shipColor == playerBullet.colorA || shipColor == playerBullet.colorB) {
 				//Debug.Log ("Enemy Ship Parry Bullet");
 			} else {
-				gameObject.SetActive (false);
+                DamageEnemy(20f);
 				//Debug.Log ("Enemy destroyed");
 			}
 		} else if (other.gameObject.tag == "Player Ship") {
@@ -84,4 +89,25 @@ public class RedEnemyController : MonoBehaviour
 		yield return new WaitForSeconds (time);
 		collider.isTrigger = true;
 	}
+
+    void LeftRest() {
+        var rest = Instantiate(restPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+        rest.transform.position = transform.position;
+        rest.SetActive(true);
+    }
+
+    void DamageEnemy(float damage) {
+        //Debug.Log("damaged");
+        actualAlfa = sprite.color.a;
+        if (actualAlfa > 0.19f)
+        {
+            sprite.color = new Color(255f, 255f, 255f, actualAlfa - damage / 100);
+            actualAlfa = sprite.color.a;
+        }
+        else
+        {
+            gameObject.SetActive(false);
+            LeftRest();
+        }
+    }
 }

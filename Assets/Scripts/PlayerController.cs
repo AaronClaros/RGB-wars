@@ -62,8 +62,9 @@ public class PlayerController : MonoBehaviour {
         }
 
         //Turning Player
-		if (Input.GetKeyDown(KeyCode.Z) && !Input.GetKey (KeyCode.Space))
+		if (Input.GetAxis("Left Trigger") == -1 & !Input.GetButton("Fire1"))
         {
+            Debug.Log(Input.GetAxis("Left Trigger"));
             if (!rotating)
             {
 				Debug.Log("left rotation");
@@ -71,9 +72,10 @@ public class PlayerController : MonoBehaviour {
             }
             
         }
-		else if (Input.GetKeyDown(KeyCode.C) && !Input.GetKey (KeyCode.Space))
+
+        if (Input.GetAxis("Right Trigger") == -1 & !Input.GetButton("Fire1"))
         {
-           
+            Debug.Log(Input.GetAxis("Right Trigger"));
             if (!rotating)
             {
 				Debug.Log("rigth rotation");
@@ -83,7 +85,7 @@ public class PlayerController : MonoBehaviour {
         }
         
 		//Shooting with space
-		if (Input.GetButton ("Jump") && (!Input.GetKey (KeyCode.Z) || !Input.GetKey (KeyCode.C))) {
+		if (Input.GetButton ("Fire1") && (!Input.GetKey (KeyCode.Z) || !Input.GetKey (KeyCode.C))) {
 
 			if (!shooting){
 				if (Time.time - lastfired > 1 / fireRate) {
@@ -99,7 +101,7 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		//Fast Shoot
-		if (Input.GetButtonDown ("Jump")) {
+		if (Input.GetButtonDown ("Fire1")) {
 			if (!shooting){
 				var bullet = pool.NextObject (head);
 				shooting = true;
@@ -110,8 +112,13 @@ public class PlayerController : MonoBehaviour {
 			shooting = false;
 		}
 
-		// block mode
+        //Restart Game
+        if (Input.GetButtonDown("Submit")) {
+            Application.LoadLevel(Application.loadedLevel);
+        }
 
+		// block mode
+        /*
 		if (Input.GetKey (KeyCode.Space) && Input.GetKeyDown (KeyCode.C)) {
 			//if (!rotating)
 			//{
@@ -150,7 +157,7 @@ public class PlayerController : MonoBehaviour {
             StartCoroutine(rotateTriangle(-60));
             //}
         }
-
+        */
     }
 
     IEnumerator rotateTriangle(float rotationAmount)

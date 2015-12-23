@@ -76,6 +76,7 @@ public class RedEnemyController : MonoBehaviour
 				StartCoroutine(MakeCollisionable(0.5f));
 			}else{
 				gameObject.SetActive(false);
+                other.gameObject.SetActive(false);
 			}
 		}
     }
@@ -99,7 +100,7 @@ public class RedEnemyController : MonoBehaviour
     void DamageEnemy(float damage) {
         //Debug.Log("damaged");
         actualAlfa = sprite.color.a;
-        if (actualAlfa > 0.19f)
+        if (actualAlfa > 0.21f)
         {
             sprite.color = new Color(255f, 255f, 255f, actualAlfa - damage / 100);
             actualAlfa = sprite.color.a;

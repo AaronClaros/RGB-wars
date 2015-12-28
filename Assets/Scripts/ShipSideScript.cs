@@ -7,9 +7,12 @@ public class ShipSideScript : MonoBehaviour {
     public colorGame sideColor;
     
 	float actualAlfa;
+    AmmoGUIScript ammoGUI;
+
 	// Use this for initialization
 	void Start () {
         sprite = GetComponent<SpriteRenderer>();
+        ammoGUI = FindObjectOfType(typeof(AmmoGUIScript)) as AmmoGUIScript;
 	}
 
     void OnCollisionEnter2D(Collision2D other) {
@@ -20,6 +23,7 @@ public class ShipSideScript : MonoBehaviour {
             if (enemyBullet.color == sideColor) {
                 Debug.Log("Parry Bullet");
                 enemyBullet.gameObject.SetActive(false);
+                ammoGUI.increaseAmmoCountGUI(1);
             } else {
                 DamageSide(20f);
                 Debug.Log("Side Damaged");

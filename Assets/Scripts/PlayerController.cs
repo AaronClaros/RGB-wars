@@ -23,7 +23,8 @@ public class PlayerController : MonoBehaviour {
 	public ControlType controlType;
 	public float moveSpeed = 0.3f;
     public float rotateSpeed = 0.1f;
-    public int ammoCount = 10;
+    public static int actualAmmo = 10;
+    public static int ammoCount = 10;
     public float reloadTime = 1;
     public float fireRate = 10f;
     public string bulletColor = "blue_red";
@@ -39,12 +40,14 @@ public class PlayerController : MonoBehaviour {
 
     
     public header head;
+    private AmmoGUIScript ammoGUI;
 
 	// Use this for initialization
 	void Start () {
         //rb2d = GetComponent<Rigidbody2D>();
         startingRotation = this.transform.rotation;
 		pool = GetComponent<PlayerBulletPool>();
+        ammoGUI = FindObjectOfType(typeof (AmmoGUIScript)) as AmmoGUIScript;
 	}
 	
 	// Update is called once per frame
@@ -87,31 +90,33 @@ public class PlayerController : MonoBehaviour {
 		//Shooting with space
 		if (Input.GetButton ("Fire1") && (!Input.GetKey (KeyCode.Z) || !Input.GetKey (KeyCode.C))) {
 
-			if (!shooting){
+			if (!shooting && actualAmmo > 0){
 				if (Time.time - lastfired > 1 / fireRate) {
 					lastfired = Time.time;
 					var bullet = pool.NextObject (head);
 					shooting = true;
 					bullet.transform.position = new Vector2(transform.position.x + 2.5f, transform.position.y);
 					bullet.SetActive (true);
+                    ammoGUI.ReduceAmmoCountGUI(1);
 				}
 			}
 		} else {
 			shooting = false;
 		}
-
+        
 		//Fast Shoot
 		if (Input.GetButtonDown ("Fire1")) {
-			if (!shooting){
+			if (!shooting && actualAmmo > 0){
 				var bullet = pool.NextObject (head);
 				shooting = true;
                 bullet.transform.position = new Vector2(transform.position.x + 2.5f, transform.position.y);
-				bullet.SetActive (true);
+                bullet.SetActive(true);
+                ammoGUI.ReduceAmmoCountGUI(1);
 			}
 		} else {
 			shooting = false;
 		}
-
+        
         //Restart Game
         if (Input.GetButtonDown("Submit")) {
             Application.LoadLevel(Application.loadedLevel);

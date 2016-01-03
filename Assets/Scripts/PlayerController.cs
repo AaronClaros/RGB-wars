@@ -37,7 +37,10 @@ public class PlayerController : MonoBehaviour {
     
     PlayerBulletPool pool;
     Quaternion startingRotation;
-
+    Transform shields;
+    bool rotating_flag = true;
+    bool trigger1_pressed = false;
+    bool trigger2_pressed = false;
     
     public header head;
     private AmmoGUIScript ammoGUI;
@@ -45,9 +48,11 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         //rb2d = GetComponent<Rigidbody2D>();
-        startingRotation = this.transform.rotation;
+        shields = transform.GetChild(0);
+        startingRotation = shields.transform.rotation;
 		pool = GetComponent<PlayerBulletPool>();
         ammoGUI = FindObjectOfType(typeof (AmmoGUIScript)) as AmmoGUIScript;
+        
 	}
 	
 	// Update is called once per frame
@@ -65,28 +70,43 @@ public class PlayerController : MonoBehaviour {
         }
 
         //Turning Player
-		if (Input.GetAxis("Left Trigger") == -1 & !Input.GetButton("Fire1"))
+        if ((Input.GetAxis("Left Trigger") <= -0.2 & !Input.GetButton("Fire1")) & !trigger1_pressed)
         {
             Debug.Log(Input.GetAxis("Left Trigger"));
+            trigger1_pressed = true;
             if (!rotating)
             {
-				Debug.Log("left rotation");
+                Debug.Log("left rotation");
+                StopAllCoroutines();
                 StartCoroutine(rotateTriangle(120));
+
             }
-            
+
+        }
+        else if (Input.GetAxis("Left Trigger") > -0.1){
+            trigger1_pressed = false;
         }
 
-        if (Input.GetAxis("Right Trigger") == -1 & !Input.GetButton("Fire1"))
+
+
+        if ((Input.GetAxis("Right Trigger") <= -0.2 & !Input.GetButton("Fire1")) & !trigger2_pressed)
         {
             Debug.Log(Input.GetAxis("Right Trigger"));
+            trigger2_pressed = true;
             if (!rotating)
             {
-				Debug.Log("rigth rotation");
+                Debug.Log("rigth rotation");
+                StopAllCoroutines();
                 StartCoroutine(rotateTriangle(-120));
             }
-            
+
         }
-        
+        else if (Input.GetAxis("Right Trigger") > -0.1)
+        {
+            trigger2_pressed = false;
+        }
+  
+
 		//Shooting with space
 		if (Input.GetButton ("Fire1") && (!Input.GetKey (KeyCode.Z) || !Input.GetKey (KeyCode.C))) {
 
@@ -185,9 +205,9 @@ public class PlayerController : MonoBehaviour {
             head = header.green_blue;
         }
 
-        while(this.transform.rotation != finalRotation)
+        while (shields.transform.rotation != finalRotation)
         {
-            this.transform.rotation = Quaternion.Lerp(this.transform.rotation, finalRotation, Time.deltaTime*rotateSpeed);
+            shields.transform.rotation = Quaternion.Lerp(shields.transform.rotation, finalRotation, Time.deltaTime * rotateSpeed);
             yield return 0;
         }
         startingRotation = finalRotation;

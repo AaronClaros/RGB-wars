@@ -1,13 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
-public enum header { 
-    blue_red = -1, 
-    green_blue = 0, 
-    green_red = 1 
+public enum WeaponColor { 
+    colorA = -1, 
+    colorB = 0, 
+    colorC = 1 
 };
 
-public enum colorGame { 
+public enum SideColor { 
     red,
     green,
     blue
@@ -41,8 +41,9 @@ public class PlayerController : MonoBehaviour {
     bool rotating_flag = true;
     bool trigger1_pressed = false;
     bool trigger2_pressed = false;
+    EnergyBarScript energyBar;
     
-    public header head;
+    public WeaponColor head;
     private AmmoGUIScript ammoGUI;
 
 	// Use this for initialization
@@ -52,7 +53,8 @@ public class PlayerController : MonoBehaviour {
         startingRotation = shields.transform.rotation;
 		pool = GetComponent<PlayerBulletPool>();
         ammoGUI = FindObjectOfType(typeof (AmmoGUIScript)) as AmmoGUIScript;
-        
+        energyBar = FindObjectOfType(typeof(EnergyBarScript)) as EnergyBarScript;
+        actualAmmo = ammoCount;
 	}
 	
 	// Update is called once per frame
@@ -63,11 +65,19 @@ public class PlayerController : MonoBehaviour {
         if (hAxis != 0)
         {
             transform.position = new Vector2(transform.position.x + hAxis * moveSpeed, transform.position.y);
+
         }
         if (vAxis != 0)
         {
             transform.position = new Vector2(transform.position.x, transform.position.y + vAxis * moveSpeed);
         }
+
+        if ((vAxis != 0) & !Input.GetButton("Fire1") || (hAxis != 0) & !Input.GetButton("Fire1"))
+        {
+            
+            energyBar.IncreaseEnergy(0.003f);
+        }
+        
 
         //Turning Player
         if ((Input.GetAxis("Left Trigger") <= -0.2 & !Input.GetButton("Fire1")) & !trigger1_pressed)
@@ -79,7 +89,21 @@ public class PlayerController : MonoBehaviour {
                 Debug.Log("left rotation");
                 StopAllCoroutines();
                 StartCoroutine(rotateTriangle(120));
-
+                energyBar.IncreaseEnergy(0.2f);
+                switch (head)
+                {
+                    case WeaponColor.colorA:
+                        head = WeaponColor.colorC;
+                        break;
+                    case WeaponColor.colorB:
+                        head = WeaponColor.colorA;
+                        break;
+                    case WeaponColor.colorC:
+                        head = WeaponColor.colorB;
+                        break;
+                    default:
+                        break;
+                }
             }
 
         }
@@ -98,6 +122,21 @@ public class PlayerController : MonoBehaviour {
                 Debug.Log("rigth rotation");
                 StopAllCoroutines();
                 StartCoroutine(rotateTriangle(-120));
+                energyBar.IncreaseEnergy(0.2f);
+                switch (head)
+                {
+                    case WeaponColor.colorA:
+                        head = WeaponColor.colorB;
+                        break;
+                    case WeaponColor.colorB:
+                        head = WeaponColor.colorC;
+                        break;
+                    case WeaponColor.colorC:
+                        head = WeaponColor.colorA;
+                        break;
+                    default:
+                        break;
+                }
             }
 
         }
@@ -140,6 +179,12 @@ public class PlayerController : MonoBehaviour {
         //Restart Game
         if (Input.GetButtonDown("Submit")) {
             Application.LoadLevel(Application.loadedLevel);
+        }
+
+        if (energyBar.GetEnergyValue() == 1) {
+            actualAmmo = ammoCount;
+            energyBar.SetEnergyValue(0);
+            ammoGUI.SetAmmoGUICount(ammoCount);
         }
 
 		// block mode
@@ -189,30 +234,13 @@ public class PlayerController : MonoBehaviour {
     {
         Quaternion finalRotation = Quaternion.Euler(0, 0, rotationAmount) * startingRotation;
         rotating = true;
-
-        var angle = finalRotation.eulerAngles.z;
-        
-        if (angle > -5 && angle < 5)
-        {
-            head = header.blue_red;
-        }
-        if (angle > 115 && angle < 125)
-        {
-            head = header.green_red;
-        }
-        if (angle > 235 && angle < 245)
-        {
-            head = header.green_blue;
-        }
-
         while (shields.transform.rotation != finalRotation)
         {
             shields.transform.rotation = Quaternion.Lerp(shields.transform.rotation, finalRotation, Time.deltaTime * rotateSpeed);
             yield return 0;
         }
-        startingRotation = finalRotation;
         rotating = false;
-
+        startingRotation = finalRotation;
         
     }
 }

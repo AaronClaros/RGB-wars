@@ -3,32 +3,32 @@ using System.Collections;
 
 public class PlayerBulletScript : MonoBehaviour {
     public float speed;
-    public header color;
+    public WeaponColor color;
     [HideInInspector]
-    public colorGame colorA;
+    public SideColor colorA;
     [HideInInspector]
-    public colorGame colorB;
+    public SideColor colorB;
     string c;
     
 	// Use this for initialization
 	void Start () {
         c = GetComponent<SpriteRenderer>().sprite.name;
         if (c == "blue_red") {
-            color = header.blue_red;
-            colorA = colorGame.blue;
-            colorB = colorGame.red;
+            color = WeaponColor.colorA;
+            colorA = SideColor.blue;
+            colorB = SideColor.red;
         }
         else if (c == "green_blue")
         {
-            color = header.green_blue;
-            colorA = colorGame.green;
-            colorB = colorGame.blue;
+            color = WeaponColor.colorB;
+            colorA = SideColor.green;
+            colorB = SideColor.blue;
         }
         else if (c == "green_red")
         {
-            color = header.green_red;
-            colorA = colorGame.green;
-            colorB = colorGame.red;
+            color = WeaponColor.colorC;
+            colorA = SideColor.green;
+            colorB = SideColor.red;
         }
 	}
 	

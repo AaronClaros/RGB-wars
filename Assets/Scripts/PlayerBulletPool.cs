@@ -6,9 +6,9 @@ public class PlayerBulletPool : MonoBehaviour {
 	//public int poolSize = 5;
 	public GameObject[] instances;
 	//public bool prePopulate;
-    List<GameObject> pool_br = new List<GameObject>();
-    List<GameObject> pool_gr = new List<GameObject>();
-    List<GameObject> pool_gb = new List<GameObject>();
+    List<GameObject> pool_colorA = new List<GameObject>();
+    List<GameObject> pool_colorB = new List<GameObject>();
+    List<GameObject> pool_colorC = new List<GameObject>();
     
  
 	//public List<GameObject> poolInstances = new List<GameObject> ();
@@ -25,14 +25,14 @@ public class PlayerBulletPool : MonoBehaviour {
 		}
 	}*/
  
-	public GameObject NextObject(header color){
-        var pool = pool_br;
-        if (color == header.blue_red) {
-            pool = pool_br;
-        }else if (color == header.green_red){
-            pool = pool_gr;
-        }else if (color == header.green_blue) {
-            pool = pool_gb;
+	public GameObject NextObject(WeaponColor color){
+        var pool = pool_colorA;
+        if (color == WeaponColor.colorA) {
+            pool = pool_colorA;
+        }else if (color == WeaponColor.colorC){
+            pool = pool_colorB;
+        }else if (color == WeaponColor.colorB) {
+            pool = pool_colorC;
         }
 		foreach (var instance in pool) {
 			if(instance.activeSelf != true){
@@ -42,13 +42,13 @@ public class PlayerBulletPool : MonoBehaviour {
 		return CreateInstance(color);
 	}
  
-	private GameObject CreateInstance(header color){
+	private GameObject CreateInstance(WeaponColor color){
         int index = 0;
-        if (color == header.blue_red) {
+        if (color == WeaponColor.colorA) {
             index = 0;
-        }else if (color == header.green_red){
+        }else if (color == WeaponColor.colorC){
             index = 1;
-        }else if (color == header.green_blue) {
+        }else if (color == WeaponColor.colorB) {
             index = 2;
         }
 		var clone =  Instantiate (instances [index]) as GameObject;
@@ -56,11 +56,11 @@ public class PlayerBulletPool : MonoBehaviour {
         clone.transform.position = Vector2.zero;
 		
         if (index == 0) {
-            pool_br.Add(clone);
+            pool_colorA.Add(clone);
         }else if (index == 1){
-            pool_gr.Add(clone);
+            pool_colorB.Add(clone);
         }else if (index == 2){
-            pool_gb.Add(clone);
+            pool_colorC.Add(clone);
         }
 		return clone;
 	}

@@ -12,7 +12,7 @@ public class RedEnemyController : MonoBehaviour
     public bool reloading;
     EnemyBulletPool pool;
 
-    public colorGame shipColor;
+    public SideColor shipColor;
 	CircleCollider2D collider;
 
     public GameObject restPrefab;
@@ -31,7 +31,8 @@ public class RedEnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(Shoot(reloadTime));
+        //StartCoroutine(Shoot(reloadTime));
+        transform.position = new Vector2(transform.position.x - (1 * moveSpeed), transform.position.y);
     }
 
     IEnumerator Shoot(float rT)

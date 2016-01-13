@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: c550ba6af6fb5254f8df03e5793a56e8
-timeCreated: 1451510172
+guid: b9a12d141a28e6546b86f9fc05662eec
+timeCreated: 1452467766
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -9,6 +9,7 @@ TextureImporter:
     21300004: SpaceShip_Sheet_2
     21300006: SpaceShip_Sheet_3
     21300008: SpaceShip_Sheet_4
+    21300010: SpaceShip_Sheet_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -59,51 +60,61 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 400
-        width: 344
-        height: 398
+        y: 446
+        width: 382
+        height: 441
       alignment: 9
-      pivot: {x: .338999987, y: .507000029}
+      pivot: {x: .338999987, y: .501999974}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: SpaceShip_Sheet_1
       rect:
         serializedVersion: 2
-        x: 378
-        y: 370
-        width: 31
-        height: 428
+        x: 455
+        y: 741
+        width: 474
+        height: 34
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: SpaceShip_Sheet_2
       rect:
         serializedVersion: 2
-        x: 437
-        y: 370
-        width: 31
-        height: 428
+        x: 455
+        y: 675
+        width: 474
+        height: 34
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: SpaceShip_Sheet_3
       rect:
         serializedVersion: 2
-        x: 497
-        y: 371
-        width: 30
-        height: 427
+        x: 455
+        y: 609
+        width: 474
+        height: 34
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: SpaceShip_Sheet_4
       rect:
         serializedVersion: 2
-        x: 2
+        x: 0
         y: 0
-        width: 354
-        height: 397
+        width: 392
+        height: 440
       alignment: 9
-      pivot: {x: .317000002, y: .501999974}
+      pivot: {x: .326000005, y: .500999928}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SpaceShip_Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 1
+        width: 392
+        height: 440
+      alignment: 9
+      pivot: {x: .326000005, y: .500999987}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class EnemyRestScript : MonoBehaviour {
 	public float speed = 1;
 	float rspeed;
 	int rotateSide;
-	public colorGame color;
+	public SideColor color;
 	// Use this for initialization
 	void Start () {
 		Random.seed = (int)System.DateTime.Now.Ticks;

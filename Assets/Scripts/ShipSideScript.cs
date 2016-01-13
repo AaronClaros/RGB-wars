@@ -4,9 +4,9 @@ using System.Collections;
 public class ShipSideScript : MonoBehaviour {
     
     SpriteRenderer sprite;
-    public colorGame sideColor;
+    public SideColor sideColor;
     
-	float actualAlfa;
+	float actualXScale;
     AmmoGUIScript ammoGUI;
 
 	// Use this for initialization
@@ -43,29 +43,39 @@ public class ShipSideScript : MonoBehaviour {
 				enemyRest.gameObject.SetActive(false);*/
 			}
         }
+        else if (other.gameObject.tag == "Enemy Ship") {
+            Debug.Log(other.gameObject.name + " collisioned with " + name);
+            var enemyShip = other.gameObject.GetComponent<RedEnemyController>();
+            if (enemyShip.shipColor != sideColor)
+            {
+                DamageSide(20f);
+            }
+            enemyShip.gameObject.SetActive(false);
+            
+        }
     }
 
     void DamageSide(float damage) {
 		Debug.Log ("damaged");
-		actualAlfa = sprite.color.a;
-		if (actualAlfa > 0.21f) {
-			sprite.color = new Color (255f, 255f, 255f, actualAlfa - damage / 100);
-			actualAlfa = sprite.color.a;
+        actualXScale = transform.localScale.x;
+		if (actualXScale > 0.21f) {
+            transform.localScale = new Vector3(actualXScale - damage / 100, transform.localScale.y, transform.localScale.z);
+            actualXScale = transform.localScale.x;
 		} else {
-			sprite.color = new Color (255f, 255f, 255f, 0.1f);
-			actualAlfa = sprite.color.a;
+            transform.localScale = new Vector3(0, transform.localScale.y, transform.localScale.z);
+            actualXScale = transform.localScale.x;
 		}
     }
 
 	void HealtSide(float count){
 		Debug.Log ("healed");
-		actualAlfa = sprite.color.a;
-		if (actualAlfa < 0.79f) {
-			sprite.color = new Color (255f, 255f, 255f, actualAlfa + count / 100);
-			actualAlfa = sprite.color.a;
+		actualXScale = transform.localScale.x;
+		if (actualXScale < 0.79f) {
+            transform.localScale = new Vector3(actualXScale + count / 100, transform.localScale.y, transform.localScale.z);
+            actualXScale = transform.localScale.x;
 		} else {
-			sprite.color = new Color (255f, 255f, 255f, 1f);
-			actualAlfa = sprite.color.a;
+            transform.localScale = Vector3.one;
+            actualXScale = transform.localScale.x;
 		}
 	}
 }

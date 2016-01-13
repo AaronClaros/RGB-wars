@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemyBulletScript : MonoBehaviour {
 	public float speed;
-    public colorGame color;
+    public SideColor color;
 	//string c;
 	
 	// Use this for initialization

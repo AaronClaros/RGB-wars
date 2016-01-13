@@ -31,4 +31,10 @@ public class AmmoGUIScript : MonoBehaviour {
             PlayerController.actualAmmo++;
         }
     }
+
+    public void SetAmmoGUICount(int value) {
+        if (value < ammoSprites.Length) {
+            img.sprite = ammoSprites[value];
+        }
+    }
 }

@@ -38,13 +38,23 @@ public class PlayerController : MonoBehaviour {
     PlayerBulletPool pool;
     Quaternion startingRotation;
     Transform shields;
-    bool rotating_flag = true;
+    //bool rotating_flag = true;
     bool trigger1_pressed = false;
     bool trigger2_pressed = false;
     EnergyBarScript energyBar;
     
     public WeaponColor head;
     private AmmoGUIScript ammoGUI;
+
+    
+
+    public static PlayerController instance = null;
+    void Awake() {
+        if (instance == null)
+            instance = this;
+        else if (instance != null)
+            Destroy(this);
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -59,10 +69,12 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        
+
         hAxis = Input.GetAxis("Horizontal");
         vAxis = Input.GetAxis("Vertical");
         //Moving Player
-        if (hAxis != 0)
+        if (hAxis != 0 )
         {
             transform.position = new Vector2(transform.position.x + hAxis * moveSpeed, transform.position.y);
 
@@ -186,48 +198,7 @@ public class PlayerController : MonoBehaviour {
             energyBar.SetEnergyValue(0);
             ammoGUI.SetAmmoGUICount(ammoCount);
         }
-
-		// block mode
-        /*
-		if (Input.GetKey (KeyCode.Space) && Input.GetKeyDown (KeyCode.C)) {
-			//if (!rotating)
-			//{
-			Debug.Log ("Left Block on");
-			StartCoroutine (rotateTriangle (-60));
-			//}
-		} else if (Input.GetKey (KeyCode.Space) && Input.GetKey (KeyCode.C)) {
-			rotating = true;
-			shooting = true;
-		}else if (Input.GetKey (KeyCode.Space) && Input.GetKeyUp (KeyCode.C)){
-			//if (!rotating){
-				rotating = false;
-				Debug.Log("Left Block off");
-				StartCoroutine(rotateTriangle(60));
-			//}
-		}
-
-        if (Input.GetKey(KeyCode.Space) && Input.GetKeyDown(KeyCode.Z))
-        {
-            //if (!rotating)
-            //{
-            Debug.Log("Left Block on");
-            StartCoroutine(rotateTriangle(60));
-            //}
-        }
-        else if (Input.GetKey(KeyCode.Space) && Input.GetKey(KeyCode.Z))
-        {
-            rotating = true;
-            shooting = true;
-        }
-        else if (Input.GetKey(KeyCode.Space) && Input.GetKeyUp(KeyCode.Z))
-        {
-            //if (!rotating){
-            rotating = false;
-            Debug.Log("Left Block off");
-            StartCoroutine(rotateTriangle(-60));
-            //}
-        }
-        */
+       
     }
 
     IEnumerator rotateTriangle(float rotationAmount)

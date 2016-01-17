@@ -1,20 +1,20 @@
 fileFormatVersion: 2
-guid: c9819629696289846b1246c07997218a
-timeCreated: 1451249656
+guid: 84851e60cf6663746b75c4c4aa5973fe
+timeCreated: 1452996299
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Ammo_GUI_Sheet_0
-    21300002: Ammo_GUI_Sheet_1
-    21300004: Ammo_GUI_Sheet_2
-    21300006: Ammo_GUI_Sheet_3
-    21300008: Ammo_GUI_Sheet_4
-    21300010: Ammo_GUI_Sheet_5
-    21300012: Ammo_GUI_Sheet_6
-    21300014: Ammo_GUI_Sheet_7
-    21300016: Ammo_GUI_Sheet_8
-    21300018: Ammo_GUI_Sheet_9
-    21300020: Ammo_GUI_Sheet_10
+    21300000: Ammo_GUI_Sheet2_0
+    21300002: Ammo_GUI_Sheet2_1
+    21300004: Ammo_GUI_Sheet2_2
+    21300006: Ammo_GUI_Sheet2_3
+    21300008: Ammo_GUI_Sheet2_4
+    21300010: Ammo_GUI_Sheet2_5
+    21300012: Ammo_GUI_Sheet2_6
+    21300014: Ammo_GUI_Sheet2_7
+    21300016: Ammo_GUI_Sheet2_8
+    21300018: Ammo_GUI_Sheet2_9
+    21300020: Ammo_GUI_Sheet2_10
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -40,7 +40,7 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
-    filterMode: 0
+    filterMode: -1
     aniso: 16
     mipBias: -1
     wrapMode: 1
@@ -55,121 +55,121 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: .5, y: .5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 147
+  spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: Ammo_GUI_Sheet_0
+    - name: Ammo_GUI_Sheet2_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 662
-        width: 302
-        height: 64
+        y: 730
+        width: 333
+        height: 70
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Ammo_GUI_Sheet_1
+    - name: Ammo_GUI_Sheet2_1
       rect:
         serializedVersion: 2
         x: 0
-        y: 595
-        width: 302
-        height: 64
+        y: 657
+        width: 333
+        height: 70
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Ammo_GUI_Sheet_2
+    - name: Ammo_GUI_Sheet2_2
       rect:
         serializedVersion: 2
         x: 0
-        y: 529
-        width: 302
-        height: 64
+        y: 584
+        width: 333
+        height: 70
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Ammo_GUI_Sheet_3
+    - name: Ammo_GUI_Sheet2_3
       rect:
         serializedVersion: 2
         x: 0
-        y: 463
-        width: 302
-        height: 64
+        y: 511
+        width: 333
+        height: 70
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Ammo_GUI_Sheet_4
+    - name: Ammo_GUI_Sheet2_4
       rect:
         serializedVersion: 2
         x: 0
-        y: 397
-        width: 302
-        height: 64
+        y: 438
+        width: 333
+        height: 70
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Ammo_GUI_Sheet_5
+    - name: Ammo_GUI_Sheet2_5
       rect:
         serializedVersion: 2
         x: 0
-        y: 331
-        width: 302
-        height: 64
+        y: 365
+        width: 333
+        height: 70
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Ammo_GUI_Sheet_6
+    - name: Ammo_GUI_Sheet2_6
       rect:
         serializedVersion: 2
         x: 0
-        y: 265
-        width: 302
-        height: 64
+        y: 292
+        width: 333
+        height: 70
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Ammo_GUI_Sheet_7
+    - name: Ammo_GUI_Sheet2_7
       rect:
         serializedVersion: 2
         x: 0
-        y: 198
-        width: 302
-        height: 64
+        y: 219
+        width: 333
+        height: 70
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Ammo_GUI_Sheet_8
+    - name: Ammo_GUI_Sheet2_8
       rect:
         serializedVersion: 2
         x: 0
-        y: 132
-        width: 302
-        height: 64
+        y: 146
+        width: 333
+        height: 70
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Ammo_GUI_Sheet_9
+    - name: Ammo_GUI_Sheet2_9
       rect:
         serializedVersion: 2
         x: 0
-        y: 66
-        width: 302
-        height: 64
+        y: 73
+        width: 333
+        height: 70
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Ammo_GUI_Sheet_10
+    - name: Ammo_GUI_Sheet2_10
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 302
-        height: 64
+        width: 333
+        height: 70
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

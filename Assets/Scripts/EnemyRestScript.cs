@@ -5,23 +5,22 @@ public class EnemyRestScript : MonoBehaviour {
 	public float speed = 1;
 	float rspeed;
 	int rotateSide;
+    Vector3 rDirection;
 	public SideColor color;
 	// Use this for initialization
 	void Start () {
-		Random.seed = (int)System.DateTime.Now.Ticks;
-		rspeed = Random.Range (speed/3, speed);
+		rspeed = Random.Range (speed, speed*3);
 		rotateSide = Random.Range (-1, 1);
-		Debug.Log (rotateSide);
 		if (rotateSide >= 0) {
 			rspeed=rspeed*-1;
 		}
-		Debug.Log (rspeed);
+        rDirection = new Vector3(Random.Range(0f, 1f), Random.Range(-1f, 1f), 0f);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		transform.Rotate(new Vector3(0, 0, 2*rspeed), Space.Self);
-		transform.position = new Vector2 (transform.position.x - speed/10, transform.position.y);
+		transform.position -= rDirection * speed;
 	}
 
 

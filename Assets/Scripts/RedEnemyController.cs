@@ -13,7 +13,6 @@ public class RedEnemyController : MonoBehaviour
     EnemyBulletPool pool;
 
     public SideColor shipColor;
-	CircleCollider2D collider;
 
     public GameObject restPrefab;
     SpriteRenderer sprite;
@@ -24,7 +23,6 @@ public class RedEnemyController : MonoBehaviour
         pool = GetComponent<EnemyBulletPool>();
         actualAmmo = ammoCount;
         lastfired = 0;
-		collider = GetComponent<CircleCollider2D> ();
         sprite = GetComponent<SpriteRenderer>();
     }
 
@@ -65,19 +63,11 @@ public class RedEnemyController : MonoBehaviour
     {
         if (other.gameObject.tag == "Player Bullet") {
 			var playerBullet = other.gameObject.GetComponent<PlayerBulletScript> ();
-			if (shipColor == playerBullet.colorA || shipColor == playerBullet.colorB) {
+			if (shipColor == playerBullet.color) {
 				//Debug.Log ("Enemy Ship Parry Bullet");
 			} else {
                 DamageEnemy(20f);
 				//Debug.Log ("Enemy destroyed");
-			}
-		} else if (other.gameObject.tag == "Player Ship") {
-			if (other.gameObject.GetComponent<ShipSideScript>().sideColor == shipColor){
-				StopAllCoroutines();
-				StartCoroutine(MakeCollisionable(0.5f));
-			}else{
-				gameObject.SetActive(false);
-                other.gameObject.SetActive(false);
 			}
 		}
     }
@@ -87,9 +77,7 @@ public class RedEnemyController : MonoBehaviour
 	}
 
 	IEnumerator MakeCollisionable(float time){
-		collider.isTrigger = false;
 		yield return new WaitForSeconds (time);
-		collider.isTrigger = true;
 	}
 
     void LeftRest() {

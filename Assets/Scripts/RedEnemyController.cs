@@ -80,7 +80,7 @@ public class RedEnemyController : MonoBehaviour
 		yield return new WaitForSeconds (time);
 	}
 
-    void LeftRest() {
+    public void LeftRest() {
         var rest = Instantiate(restPrefab, Vector3.zero, Quaternion.identity) as GameObject;
         rest.transform.position = transform.position;
         rest.SetActive(true);

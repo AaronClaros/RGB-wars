@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour {
 		keyboard_mouse
 	};
 	public ControlType controlType;
-	public float moveSpeed = 0.3f;
+	public float moveSpeed = 25f;
     public float rotateSpeed = 0.1f;
     public static int actualAmmo = 10;
     public static int ammoCount = 10;
@@ -76,12 +76,12 @@ public class PlayerController : MonoBehaviour {
         //Moving Player
         if (hAxis != 0 )
         {
-            transform.position = new Vector2(transform.position.x + hAxis * moveSpeed, transform.position.y);
+            transform.position = new Vector2(transform.position.x + (moveSpeed*Time.deltaTime) * hAxis, transform.position.y);
 
         }
         if (vAxis != 0)
         {
-            transform.position = new Vector2(transform.position.x, transform.position.y + vAxis * moveSpeed);
+            transform.position = new Vector2(transform.position.x, transform.position.y + (moveSpeed * Time.deltaTime) * vAxis);
         }
 
         if ((vAxis != 0) & !Input.GetButton("Fire1") || (hAxis != 0) & !Input.GetButton("Fire1"))

@@ -53,6 +53,7 @@ public class ShipSideScript : MonoBehaviour {
             else if (enemyShip.shipColor == sideColor)
             {
                 AmmoGUIScript.instance.IncreaseAmmoCountGUI(10);
+                enemyShip.LeftRest();
             }
             enemyShip.gameObject.SetActive(false);
 

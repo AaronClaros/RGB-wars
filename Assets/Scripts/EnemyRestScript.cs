@@ -9,7 +9,7 @@ public class EnemyRestScript : MonoBehaviour {
 
 	//public SideColor color;
     void Awake() {
-        rDirection = new Vector3(Random.Range(-0.5f, 0.2f), Random.Range(-0.9f, 0.9f), 0f);
+        rDirection = new Vector3(Random.Range(-0.5f, 0.1f), Random.Range(-0.9f, 0.9f), 0f);
     }
 
 	// Use this for initialization

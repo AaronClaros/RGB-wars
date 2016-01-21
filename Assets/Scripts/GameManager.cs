@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour {
         Debug.Log(Screen.width + " - " + Screen.height);
         for (int i = 0; i < countPerSecond; i++)
         {
-            RandomPosition = new Vector2(40f, Random.Range(-14f, 18f));
+            RandomPosition = new Vector2(30f, Random.Range(-14f, 18f));
             GameObject newEnemy = RandomPoolInstance().NextObject();
             newEnemy.transform.position = RandomPosition;
             newEnemy.SetActive(true);

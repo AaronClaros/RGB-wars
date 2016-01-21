@@ -74,11 +74,68 @@ public class PlayerController : MonoBehaviour {
         hAxis = Input.GetAxis("Horizontal");
         vAxis = Input.GetAxis("Vertical");
         //Moving Player
-        if (hAxis != 0 )
+        if (hAxis != 0)
         {
-            transform.position = new Vector2(transform.position.x + (moveSpeed*Time.deltaTime) * hAxis, transform.position.y);
+            //transform.position = new Vector2(transform.position.x + (moveSpeed*Time.deltaTime) * hAxis, transform.position.y);
+            if (hAxis < -0.7)
+            {
+                trigger1_pressed = true;
+                if (!rotating)
+                {
+                    Debug.Log("left rotation");
+                    StopAllCoroutines();
+                    StartCoroutine(rotateTriangle(120));
+                    energyBar.IncreaseEnergy(0.2f);
+                    switch (head)
+                    {
+                        case WeaponColor.colorA:
+                            head = WeaponColor.colorC;
+                            break;
+                        case WeaponColor.colorB:
+                            head = WeaponColor.colorA;
+                            break;
+                        case WeaponColor.colorC:
+                            head = WeaponColor.colorB;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            else if (hAxis > 0.7)
+            {
+                trigger2_pressed = true;
+                if (!rotating)
+                {
+                    Debug.Log("rigth rotation");
+                    StopAllCoroutines();
+                    StartCoroutine(rotateTriangle(-120));
+                    energyBar.IncreaseEnergy(0.2f);
+                    switch (head)
+                    {
+                        case WeaponColor.colorA:
+                            head = WeaponColor.colorB;
+                            break;
+                        case WeaponColor.colorB:
+                            head = WeaponColor.colorC;
+                            break;
+                        case WeaponColor.colorC:
+                            head = WeaponColor.colorA;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            else {
+                trigger1_pressed = false;
+                trigger2_pressed = false;
+            }
+        }
+        else { 
 
         }
+
         if (vAxis != 0)
         {
             transform.position = new Vector2(transform.position.x, transform.position.y + (moveSpeed * Time.deltaTime) * vAxis);
@@ -90,7 +147,7 @@ public class PlayerController : MonoBehaviour {
             energyBar.IncreaseEnergy(0.003f);
         }
         
-
+        /*
         //Turning Player
         if ((Input.GetAxis("Left Trigger") <= -0.2 & !Input.GetButton("Fire1")) & !trigger1_pressed)
         {
@@ -156,7 +213,7 @@ public class PlayerController : MonoBehaviour {
         {
             trigger2_pressed = false;
         }
-  
+        */
 
 		//Shooting with space
 		if (Input.GetButton ("Fire1") && (!Input.GetKey (KeyCode.Z) || !Input.GetKey (KeyCode.C))) {

@@ -3,31 +3,24 @@ using System.Collections;
 
 namespace Vertical
 {
+    public enum GroundReference { left, right};
+
     public class PlayerMovement : MonoBehaviour {
         public PlayerMovement instance = null;
         public float m_Speed = 10;
 
         private float vAxis;
         private float hAxis;
-		public bool OnAir;
-		public bool lSideGrounded;
-		public bool rSideGrounded;
+        public GroundReference ground;
+        public bool has_land;
+        public bool has_deploy;
+        public bool gravity_change;
+        public float deployRange;
 
-		public float rotateSpeed;
-		public float rotateOffset;
-		private Transform ship_Base;
-		private Quaternion startingRotation;
-		private bool rotating;
-
-		private Transform ship_Weapon;
-
-        [HideInInspector]
-        public Transform leftSide;
-        public float leftOffset = 0.5f;
-        [HideInInspector]
-        public Transform rightSide;
-        public float rightOffset = 0.5f;
-
+        private Transform ship_base;
+        private Rigidbody2D rb2d;
+        RaycastHit2D hit;
+		
         void Awake() {
             if (instance == null)
                 instance = this;
@@ -38,50 +31,101 @@ namespace Vertical
 
 	    // Use this for initialization
 	    void Start () {
-            leftSide = GameObject.Find("LeftSideEdge").transform;
-            rightSide = GameObject.Find("RightSideEdge").transform;
-			ship_Base = transform.FindChild("Base");
-			ship_Weapon = transform.FindChild("Weapon");
-			startingRotation = ship_Base.rotation;
+            rb2d = GetComponent<Rigidbody2D>();
+            Physics2D.gravity = ground == GroundReference.left ? new Vector2(-1.0f, 0) : new Vector2(1.0f, 0);
+            if (ground == GroundReference.left)
+                hit = Physics2D.Raycast(transform.position, Vector2.left);
+            else if (ground == GroundReference.right)
+                hit = Physics2D.Raycast(transform.position, Vector2.right);
+
 	    }
 	
 	    // Update is called once per frame
-	    void Update () {
+	    void FixedUpdate () {
             
             hAxis = Input.GetAxis("Horizontal");
             if (hAxis != 0) {
-				float xMove = hAxis * Time.deltaTime * m_Speed;
-	            transform.Translate(xMove, 0, 0);
-	            float leftLim = leftSide.position.x + leftOffset;
-				float rightLim = rightSide.position.x -rightOffset;
-	            Debug.Log(leftLim+" : "+rightLim);
-				transform.position = new Vector2(Mathf.Clamp(transform.position.x, leftLim, rightLim), transform.position.y);
+                if (hAxis < -0.3f & !gravity_change) {
+                    ground = GroundReference.left;
+                    gravity_change = true;
+                    Debug.Log("goin to left");
+                } else if (hAxis > 0.3f & !gravity_change){
+                    ground = GroundReference.right;
+                    gravity_change = true;
+                    Debug.Log("goin to right");
+                }
             }
-			lSideGrounded = transform.position.x - 0.01f <= leftSide.position.x + leftOffset;
-			rSideGrounded = transform.position.x + 0.01f >= rightSide.position.x - rightOffset;
-			OnAir = (transform.position.x < leftSide.position.x + leftOffset) || (transform.position.x < rightSide.position.x - rightOffset);
-			if (lSideGrounded) {
-				Debug.Log ("Ship Stay on left side");
-			}
-			if (rSideGrounded) {
-				Debug.Log ("Ship Stay on right side");
-			}
+
+            
+
+            bool attack = Input.GetButtonDown("Fire1");
+            float xMove = 0;
+            switch (ground)
+            {
+                case GroundReference.left:
+                    xMove = 10 * m_Speed * Time.fixedDeltaTime;
+                    hit = Physics2D.Raycast(transform.position, Vector2.left);
+                    break;
+                case GroundReference.right:
+                    xMove = -10 * m_Speed * Time.fixedDeltaTime;
+                    hit = Physics2D.Raycast(transform.position, Vector2.right);
+                    break;
+                default:
+                    break;
+            }
+            if (attack) {
+                rb2d.velocity = Vector2.zero;
+                rb2d.AddForce(new Vector2(xMove, 0), ForceMode2D.Impulse);
+                //Debug.Log(rb2d.velocity);
+            }
+            else {
+                
+            }
+            
+            Physics2D.gravity = ground==GroundReference.left? new Vector2(-1.0f, 0): new Vector2(1.0f, 0);
+
+            if (hit.collider != null & hit.distance < deployRange) {
+                if (!has_land) {
+                    Debug.Log("landing");
+                }
+
+            }
+            if (hit.collider != null & hit.distance > deployRange) {
+                //Debug.Log("On Air");
+                //Debug.Log(hit.collider.name);
+            }
             
 	    }
 
-		IEnumerator rotateTriangle(float rotationAmount)
-		{
-			Debug.Log ("Rotating");
-			Quaternion finalRotation = Quaternion.Euler(0, 0, rotationAmount) * startingRotation;
-			rotating = true;
-			while (ship_Base.rotation != finalRotation)
-			{
-				ship_Base.rotation = Quaternion.Lerp(ship_Base.rotation, finalRotation, Time.deltaTime * rotateSpeed);
-				yield return 0;
-			}
-			rotating = false;
-			startingRotation = finalRotation;
-			
-		}
+        void OnCollisionEnter2D(Collision2D other) {
+            
+            if (!has_land) {
+                has_land = true; ;
+                gravity_change = false;
+                Debug.Log("Grounded");
+            }
+        }
+
+        void OnCollisionExit2D(Collision2D other) {
+            //Debug.Log("Deploying");
+            has_land = false;
+        }
+
+        IEnumerator ChangeGravity() {
+            yield return 0;
+        }
+
+        IEnumerator Deploy(GroundReference ground, float rotateSpeed) {
+            var startingRotation = transform.rotation;
+            Quaternion finalRotation = Quaternion.Euler(0, 0, -30) * startingRotation;
+            has_deploy = false;
+            while (ship_base.rotation != finalRotation)
+            {
+                ship_base.rotation = Quaternion.Lerp(ship_base.rotation, finalRotation, Time.deltaTime * rotateSpeed);
+                yield return 0;
+            }
+            has_deploy = true;
+            startingRotation = finalRotation;
+        }
     }
 }
